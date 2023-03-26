@@ -3,7 +3,10 @@ package com.example.notes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,5 +42,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initToggleButton() {
+        final ToggleButton editToggle = (ToggleButton) findViewById(R.id.toggleButtonEdit);
+        editToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setForEditing(editToggle.isChecked());
+            }
+        });
+    }
+
+    private void setForEditing(boolean enabled) {
+        EditText editTask = findViewById(R.id.editTask);
+        EditText editDescription = findViewById(R.id.editTextDescription);
+        Button saveButton = findViewById(R.id.buttonSave);
+        Button changeButton = findViewById(R.id.buttonChange);
+
+        editTask.setEnabled(enabled);
+        editDescription.setEnabled(enabled);
+        saveButton.setEnabled(enabled);
+        changeButton.setEnabled(enabled);
     }
 }
