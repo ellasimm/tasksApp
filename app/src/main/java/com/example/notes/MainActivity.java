@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,8 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,27 +44,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initChangeDateButton();
+        initSettings();
+        initNotes();
+        initToggleButton();
 
-        // Initialize views and database helper
         editTitle = findViewById(R.id.editTitle);
         editDescription = findViewById(R.id.editTextDescription);
         radioGroupPriority = findViewById(R.id.radioGroup1);
+
         radioHigh = findViewById(R.id.radioHigh);
         radioMedium = findViewById(R.id.radioMedium);
         radioLow = findViewById(R.id.radioLow);
+
         saveButton = findViewById(R.id.buttonSave);
+
         notesDBHelper = new NotesDBHelper(this);
+
         datePickerButton = findViewById(R.id.buttonChange);
         datePickerButton.setText(getTodaysDate());
-        // Check if we are editing an existing note
+
         noteId = getIntent().getIntExtra("noteId", -1);
         if (noteId != -1) {
-            // Load note details based on the Tapped memo
             Note note = notesDBHelper.getNote(noteId);
             editTitle.setText(note.getTitle());
             editDescription.setText(note.getDescription());
             initSavedNotePriority(note.getPriority());
-            //Converted Time
             datePickerButton.setText(getDate(note.getDate().getTime()));
 
         }else{
@@ -71,38 +78,79 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//On Save click, Retrieve Objects from EditText, Text, and Times
-                String title = editTitle.getText().toString();
-                String content = editDescription.getText().toString();
-                int priority = getSelectPriority();
-                //Returns the time of the device
-                Date creationDate = new Date(System.currentTimeMillis());
-//Create a date object
-                Date noteDueDate = new Date(getDate(datePickerButton.getText().toString()));
-                //Set everything to Note Object
-                Note note = new Note();
-                note.setTitle(title);
-                note.setDescription(content);
-                note.setPriority(priority);
-                note.setNoteDueDate(noteDueDate);
-//If note doesn't have an ID
-                if (noteId == -1) {
-                    // Save a new note to DBS
-                    notesDBHelper.addNote(note);
-                } else {
-                    // Update an existing note
-                    note.setNoteID(noteId);
-                    notesDBHelper.updateNote(note);
-                }
 
-                // Return to MainActivity
-                setResult(RESULT_OK);
-                finish();
+                String title = editTitle.getText().toString();
+                String description = editDescription.getText().toString();
+
+                if (title.isEmpty() || description.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    int priority = getSelectPriority();
+                    Date date = new Date(getDate(datePickerButton.getText().toString()));
+
+                    Note note = new Note();
+                    note.setTitle(title);
+                    note.setDescription(description);
+                    note.setPriority(priority);
+                    note.setNoteDueDate(date);
+
+                    if (noteId == -1) {
+                        notesDBHelper.addNote(note);
+                    } else {
+                        note.setNoteID(noteId);
+                        notesDBHelper.updateNote(note);
+                    }
+
+                    // Return to MainActivity
+                    setResult(RESULT_OK);
+                    finish();
+                    Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    //Inits the radio buttons to be pre checked based on Priority.
+    private void initToggleButton() {
+        final ToggleButton editToggle = (ToggleButton)findViewById(R.id.toggleButtonEdit);
+        editToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setForEditing(editToggle.isChecked());
+            }
+        });
+    }
+
+    private void setForEditing(boolean enabled) {
+        EditText editTitle= findViewById(R.id.editTitle);
+        EditText editDescription= findViewById(R.id.editTextDescription);
+        RadioButton low = findViewById(R.id.radioLow);
+        RadioButton med = findViewById(R.id.radioMedium);
+        RadioButton high = findViewById(R.id.radioHigh);
+        Button  buttonChange = findViewById(R.id.buttonChange);
+        Button buttonSave= findViewById(R.id.buttonSave);
+
+        editTitle.setEnabled(enabled);
+        editDescription.setEnabled(enabled);
+        low.setEnabled(enabled);
+        med.setEnabled(enabled);
+        high.setEnabled(enabled);
+        buttonChange.setEnabled(enabled);
+        buttonSave.setEnabled(enabled);
+
+
+        if (enabled) {
+            editTitle.requestFocus();
+        }
+        else {
+            ScrollView s = findViewById(R.id.scrollView);
+            s.fullScroll(ScrollView.FOCUS_UP);
+        }
+    }
+
+
     private void initSavedNotePriority(int priority) {
         switch (priority) {
             case 3:
@@ -118,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Returns the priority based on selected radio buttons
     private int getSelectPriority() {
         if (radioHigh.isChecked()) {
             return 3;
@@ -129,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             return 1;
         }
     }
-    //Inits Change Date button
+
     private void initChangeDateButton() {
         datePickerButton = findViewById(R.id.buttonChange);
         initDatePicker();
@@ -142,11 +189,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Make the date given a String
+
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
-    //Inits the DatePicker Dialog functions
+
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -166,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
-    //Returns the Month formated in MMM from given month
+
     private String getMonthFormat(int month) {
         String currentMonth = "";
         switch (month) {
@@ -209,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return currentMonth;
     }
-    //Returns a Long based on the Set date from picker
+
     private long getDate(String date) {
         long dateLong = 0;
         try {
@@ -222,13 +269,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return dateLong;
     }
-    //Returns Date in a "MMM dd yyyy" String
+
     private String getDate(long date){
         Date d = new Date(date);
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
         return sdf.format(d).toUpperCase(Locale.ROOT);
     }
-    //Returns todays date into a String.
+
     private String getTodaysDate(){
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -239,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Opens the Datepicker Dialog
+
     private void openDatePicker(View view){
         datePickerDialog.show();
     }
@@ -248,5 +295,27 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, NotesActivity.class);
         i.setFlags(i.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+    }
+
+    private void initSettings() {
+        ImageButton ibList = findViewById(R.id.settingsButton);
+        ibList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initNotes() {
+        ImageButton ibList = findViewById(R.id.notesButton);
+        ibList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 }

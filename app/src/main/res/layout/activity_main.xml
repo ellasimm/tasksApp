@@ -105,7 +105,7 @@
                 android:layout_marginTop="50dp"
                 android:fontFamily="cursive"
                 android:text="Title"
-                android:textColor="#000000"
+                android:textColor="@color/buttons"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,9 @@
                 android:textColor="#000000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textTask"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:backgroundTint="@color/buttons"
+                android:textColorHint="@color/buttons"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -134,7 +136,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="cursive"
                 android:text="Description:"
-                android:textColor="#000000"
+                android:textColor="@color/buttons"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +154,9 @@
                 android:textColor="#000000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:backgroundTint="@color/buttons"
+                android:textColorHint="@color/buttons"/>
 
             <TextView
                 android:id="@+id/textDate"
@@ -161,30 +165,20 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="200dp"
                 android:text="Due Date:"
-                android:textColor="#000000"
+                android:textColor="@color/buttons"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
-
-            <TextView
-                android:id="@+id/textDueDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="200dp"
-                android:text="01/01/1970"
-                android:textColor="#000000"
-                app:layout_constraintStart_toEndOf="@+id/textDate"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
             <Button
                 android:id="@+id/buttonChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="180dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="190dp"
                 android:backgroundTint="@color/buttons"
                 android:text="Change Date"
-                app:layout_constraintStart_toEndOf="@+id/textDueDate"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/textDate"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
             <TextView
@@ -194,6 +188,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Priority Level"
+                android:textColor="@color/buttons"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
@@ -210,19 +205,25 @@
                     android:id="@+id/radioLow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Low" />
+                    android:text="Low"
+                    android:textColor="@color/buttons"
+                    android:buttonTint="@color/buttons"/>
 
                 <RadioButton
                     android:id="@+id/radioMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Medium" />
+                    android:text="Medium"
+                    android:textColor="@color/buttons"
+                    android:buttonTint="@color/buttons"/>
 
                 <RadioButton
                     android:id="@+id/radioHigh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="High" />
+                    android:text="High"
+                    android:textColor="@color/buttons"
+                    android:buttonTint="@color/buttons"/>
             </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
