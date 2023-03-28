@@ -4,18 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,7 +42,7 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         initListButton();
         initSettingsButton();
-        initAddContactButton();
+        initAddNoteButton();
         initDeleteSwitch();
         notesAdapter.setOnItemClickListener(onItemClickListener);
         String sortBy = getSharedPreferences("MyNoteListPreferences",
@@ -150,9 +146,9 @@ public class NotesActivity extends AppCompatActivity {
 
     }
 
-    private void initAddContactButton() {
-        Button newContact = findViewById(R.id.buttonAddContact);
-        newContact.setOnClickListener(new View.OnClickListener() {
+    private void initAddNoteButton() {
+        Button newNote = findViewById(R.id.buttonAddNote);
+        newNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NotesActivity.this, MainActivity.class);
