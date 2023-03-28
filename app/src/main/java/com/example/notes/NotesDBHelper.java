@@ -153,8 +153,8 @@ public class NotesDBHelper extends SQLiteOpenHelper {
                 null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Date creationDate, dueDate;
-            long creationDateLong, dueDateLong;
+            Date dueDate;
+            long dueDateLong;
             Note note = new Note();
             note.setNoteID(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
             note.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
