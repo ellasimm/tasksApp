@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         initSettings();
         initNotes();
         initToggleButton();
+        setForEditing(false);
 
         editTitle = findViewById(R.id.editTitle);
         editDescription = findViewById(R.id.editTextDescription);
