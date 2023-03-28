@@ -24,6 +24,9 @@
             android:layout_marginStart="32dp"
             android:minHeight="48dp"
             android:text="Delete"
+            android:textColor="@color/buttons"
+            android:thumbTint="@color/buttons"
+            android:trackTint="@color/buttons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/buttons"
             android:text="New"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -41,9 +41,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Sort Contacts By:"
+        android:text="Sort Notes By:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/buttons"/>
 
     <RadioGroup
         android:id="@+id/radioGroupSortBy"
@@ -58,19 +59,25 @@
             android:id="@+id/radioTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title" />
+            android:text="Title"
+            android:textColor="@color/buttons"
+            android:buttonTint="@color/buttons"/>
 
         <RadioButton
             android:id="@+id/radioDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date" />
+            android:text="Date"
+            android:textColor="@color/buttons"
+            android:buttonTint="@color/buttons"/>
 
         <RadioButton
             android:id="@+id/radioPriority"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Priority" />
+            android:text="Priority"
+            android:textColor="@color/buttons"
+            android:buttonTint="@color/buttons"/>
     </RadioGroup>
     <TextView
         android:id="@+id/textView2"
@@ -80,7 +87,8 @@
         android:layout_marginTop="16dp"
         android:text="Sort Order:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroupSortBy" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupSortBy"
+        android:textColor="@color/buttons"/>
 
     <RadioGroup
         android:id="@+id/radioGroupSortOrder"
@@ -95,13 +103,17 @@
             android:id="@+id/radioAscending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ascending" />
+            android:text="Ascending"
+            android:textColor="@color/buttons"
+            android:buttonTint="@color/buttons"/>
 
         <RadioButton
             android:id="@+id/radioDescending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descending" />
+            android:text="Descending"
+            android:textColor="@color/buttons"
+            android:buttonTint="@color/buttons"/>
     </RadioGroup>
 
 
