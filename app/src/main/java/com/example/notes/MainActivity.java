@@ -78,27 +78,37 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String title = editTitle.getText().toString();
-                String content = editDescription.getText().toString();
-                int priority = getSelectPriority();
-                Date date = new Date(getDate(datePickerButton.getText().toString()));
+                String description = editDescription.getText().toString();
 
-                Note note = new Note();
-                note.setTitle(title);
-                note.setDescription(content);
-                note.setPriority(priority);
-                note.setNoteDueDate(date);
-
-                if (noteId == -1) {
-                    notesDBHelper.addNote(note);
+                if (title.isEmpty() || description.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    note.setNoteID(noteId);
-                    notesDBHelper.updateNote(note);
-                }
 
-                // Return to MainActivity
-                setResult(RESULT_OK);
-                finish();
+                    int priority = getSelectPriority();
+                    Date date = new Date(getDate(datePickerButton.getText().toString()));
+
+                    Note note = new Note();
+                    note.setTitle(title);
+                    note.setDescription(description);
+                    note.setPriority(priority);
+                    note.setNoteDueDate(date);
+
+                    if (noteId == -1) {
+                        notesDBHelper.addNote(note);
+                    } else {
+                        note.setNoteID(noteId);
+                        notesDBHelper.updateNote(note);
+                    }
+
+                    // Return to MainActivity
+                    setResult(RESULT_OK);
+                    finish();
+                    Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
     }
