@@ -32,6 +32,8 @@ public class notesAdapter extends RecyclerView.Adapter {
         cvh.getTextTitle().setText(noteData.get(position).getTitle());
         cvh.getTextDescription().setText(noteData.get(position).getDescription());
         cvh.getTextDate().setText(noteData.get(position).getDate() + ",");
+        //cvh.getTextPriority().setText(noteData.get(position).getPriority());
+
         if (isDeleting) {
             cvh.getDeleteButton().setVisibility(View.VISIBLE);
             cvh.getDeleteButton().setOnClickListener(new View.OnClickListener() {
@@ -74,6 +76,7 @@ public class notesAdapter extends RecyclerView.Adapter {
         public TextView textDescription;
         public Button deleteButton;
         public TextView textDate;
+       // public TextView textPriority;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +84,9 @@ public class notesAdapter extends RecyclerView.Adapter {
             textDescription = itemView.findViewById(R.id.textDescription);
             textDate = itemView.findViewById(R.id.textDueDate);
             deleteButton = itemView.findViewById(R.id.buttonDeleteContact);
+
+        //    textPriority = itemView.findViewById(R.id.textPriority);
+
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
         }
@@ -102,6 +108,10 @@ public class notesAdapter extends RecyclerView.Adapter {
 
             return textDate;
         }
+
+      //  public TextView getTextPriority(){
+      //  return textPriority;
+      //  }
     }
 
 

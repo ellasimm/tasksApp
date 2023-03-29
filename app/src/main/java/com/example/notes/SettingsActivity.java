@@ -67,9 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
                             Context.MODE_PRIVATE).edit()
                             .putString("sortfield", "title").apply();
                 } else if(rbPriority.isChecked()){
-                    getSharedPreferences("MyNotesPreferences",
-                            Context.MODE_PRIVATE).edit()
-                            .putString("sortfield", "priority").apply();
+                    getSharedPreferences("MyNotesPreferences",Context.MODE_PRIVATE).edit().putString("sortfield",NotesDBHelper.COLUMN_PRIORITY).apply();
                 }
                 else {
                     getSharedPreferences("MyNotesPreferences",
