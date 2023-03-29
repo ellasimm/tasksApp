@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroupPriority;
     private RadioButton radioHigh, radioMedium, radioLow;
     private NotesDBHelper notesDBHelper;
-    private int noteId;
-    private Note currentId;
+    private Note currentNote;
     private DatePickerDialog datePickerDialog;
     private ArrayList<Note> notes;
+    private int noteId;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,15 +54,13 @@ public class MainActivity extends AppCompatActivity {
         initSettings();
         initNotes();
         initToggleButton();
-        /**
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            initNote(extras.getInt("noteId"));
+            initNote(extras.getInt("contactID"));
         }
-        else{
-            currentId = new Note();
+        else {
+            currentNote = new Note();
         }
-         */
         setForEditing(false);
 
         editTitle = findViewById(R.id.editTitle);
@@ -335,31 +333,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-/**
-    // To show a note
     private void initNote(int id) {
 
         NotesDBHelper ds = new NotesDBHelper(MainActivity.this);
-        try{
+        try {
             ds.open();
-            currentId = ds.getNote(id);
+            currentNote = ds.getNote(id);
             ds.close();
-        }catch(Exception ex){
-            Toast.makeText(this,"Load Note Failed", Toast.LENGTH_LONG).show();
         }
+        catch (Exception e) {
+            Toast.makeText(this, "Load Note Failed", Toast.LENGTH_LONG).show();
+        }
+
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editTextDescription);
-        RadioButton low = findViewById(R.id.radioLow);
-        RadioButton med = findViewById(R.id.radioMedium);
-        RadioButton high = findViewById(R.id.radioHigh);
+        RadioButton editPriority = findViewById(R.id.radioPriority);
+        Button date = findViewById(R.id.buttonChange);
 
-        String title = editTitle.getText().toString();
-        String description = editDescription.getText().toString();
-
-        editTitle.setText(currentId.getTitle());
-        editDescription.setText(currentId.getDescription());
-
-
+        editTitle.setText(currentNote.getTitle());
+        editDescription.setText(currentNote.getDescription());
+        editPriority.setText(currentNote.getPriority());
+        date.setText(DateFormat.format("MM/dd/yyyy", Long.parseLong(currentNote.getDate().toString())));
     }
- */
 }
