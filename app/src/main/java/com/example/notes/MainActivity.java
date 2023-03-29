@@ -1,8 +1,11 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -25,6 +28,7 @@ import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private int noteId;
     private Note currentId;
     private DatePickerDialog datePickerDialog;
+    private ArrayList<Note> notes;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         initSettings();
         initNotes();
         initToggleButton();
+        /**
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             initNote(extras.getInt("noteId"));
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             currentId = new Note();
         }
+         */
         setForEditing(false);
 
         editTitle = findViewById(R.id.editTitle);
@@ -328,10 +335,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+/**
     // To show a note
     private void initNote(int id) {
-        /**
+
         NotesDBHelper ds = new NotesDBHelper(MainActivity.this);
         try{
             ds.open();
@@ -349,17 +356,10 @@ public class MainActivity extends AppCompatActivity {
         String title = editTitle.getText().toString();
         String description = editDescription.getText().toString();
 
-
-         */
-        noteId = getIntent().getIntExtra("noteId", -1);
-        if (noteId != -1) {
-            Note note = notesDBHelper.getNote(noteId);
-            editTitle.setText(note.getTitle());
-            editDescription.setText(note.getDescription());
-            initSavedNotePriority(note.getPriority());
-            datePickerButton.setText(getDate(note.getDate().getTime()));
-        }
+        editTitle.setText(currentId.getTitle());
+        editDescription.setText(currentId.getDescription());
 
 
     }
+ */
 }
