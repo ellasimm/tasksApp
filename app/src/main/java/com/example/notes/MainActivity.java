@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton radioHigh, radioMedium, radioLow;
     private NotesDBHelper notesDBHelper;
     private int noteId;
+    private Note currentId;
     private DatePickerDialog datePickerDialog;
 
     @SuppressLint("MissingInflatedId")
@@ -47,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         initSettings();
         initNotes();
         initToggleButton();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            initNote(extras.getInt("noteId"));
+        }
+        else{
+            currentId = new Note();
+        }
         setForEditing(false);
 
         editTitle = findViewById(R.id.editTitle);
@@ -318,5 +327,39 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    // To show a note
+    private void initNote(int id) {
+        /**
+        NotesDBHelper ds = new NotesDBHelper(MainActivity.this);
+        try{
+            ds.open();
+            currentId = ds.getNote(id);
+            ds.close();
+        }catch(Exception ex){
+            Toast.makeText(this,"Load Note Failed", Toast.LENGTH_LONG).show();
+        }
+        EditText editTitle = findViewById(R.id.editTitle);
+        EditText editDescription = findViewById(R.id.editTextDescription);
+        RadioButton low = findViewById(R.id.radioLow);
+        RadioButton med = findViewById(R.id.radioMedium);
+        RadioButton high = findViewById(R.id.radioHigh);
+
+        String title = editTitle.getText().toString();
+        String description = editDescription.getText().toString();
+
+
+         */
+        noteId = getIntent().getIntExtra("noteId", -1);
+        if (noteId != -1) {
+            Note note = notesDBHelper.getNote(noteId);
+            editTitle.setText(note.getTitle());
+            editDescription.setText(note.getDescription());
+            initSavedNotePriority(note.getPriority());
+            datePickerButton.setText(getDate(note.getDate().getTime()));
+        }
+
+
     }
 }
