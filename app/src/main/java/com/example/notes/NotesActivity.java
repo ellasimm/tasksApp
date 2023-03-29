@@ -45,9 +45,9 @@ public class NotesActivity extends AppCompatActivity {
         initAddNoteButton();
         initDeleteSwitch();
         notesAdapter.setOnItemClickListener(onItemClickListener);
-        String sortBy = getSharedPreferences("MyNoteListPreferences",
+        String sortBy = getSharedPreferences("MyNotesPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "title");
-        String sortOrder = getSharedPreferences("MyNoteListPreferences",
+        String sortOrder = getSharedPreferences("MyNotesPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
 
@@ -92,9 +92,9 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        String sortBy = getSharedPreferences("MyNoteListPreferences",
+        String sortBy = getSharedPreferences("MyNotesPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "title");
-        String sortOrder = getSharedPreferences("MyNoteListPreferences",
+        String sortOrder = getSharedPreferences("MyNotesPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
         NotesDBHelper ds = new NotesDBHelper(this);
         try{
