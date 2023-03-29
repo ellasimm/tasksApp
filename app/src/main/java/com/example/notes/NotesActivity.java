@@ -30,7 +30,7 @@ public class NotesActivity extends AppCompatActivity {
             int position = viewHolder.getAdapterPosition();
             int noteId = notes.get(position).getNoteID();
             Intent intent = new Intent(NotesActivity.this, MainActivity.class);
-            intent.putExtra("noteID", noteId);
+            intent.putExtra("noteId", noteId);
             startActivity(intent);
         }
     };
@@ -72,20 +72,6 @@ public class NotesActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Error retrieving Notes", Toast.LENGTH_LONG).show();
         }
-
-//        BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                double batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-//                double levelScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 0);
-//                int batteryPercent  = (int) Math.floor(batteryLevel / levelScale * 100);
-//                TextView textBatteryState  = findViewById(R.id.textBatteryLevel);
-//                textBatteryState.setText(batteryPercent + "%");
-//            }
-//        };
-//
-//        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-//        registerReceiver(batteryReceiver, filter);
 
     }
 

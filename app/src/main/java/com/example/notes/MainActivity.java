@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         initToggleButton();
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            initNote(extras.getInt("contactID"));
+            initNote(extras.getInt("noteId"));
         }
         else {
             currentNote = new Note();
@@ -347,12 +347,12 @@ public class MainActivity extends AppCompatActivity {
 
         EditText editTitle = findViewById(R.id.editTitle);
         EditText editDescription = findViewById(R.id.editTextDescription);
-        RadioButton editPriority = findViewById(R.id.radioPriority);
-        Button date = findViewById(R.id.buttonChange);
+//        RadioButton editPriority = findViewById(R.id.radioPriority);
+//        Button date = findViewById(R.id.buttonChange);
 
         editTitle.setText(currentNote.getTitle());
         editDescription.setText(currentNote.getDescription());
-        editPriority.setText(currentNote.getPriority());
-        date.setText(DateFormat.format("MM/dd/yyyy", Long.parseLong(currentNote.getDate().toString())));
+//        editPriority.setText(currentNote.getPriority());
+//        date.setText(DateFormat.format("MM/dd/yyyy", Long.parseLong(currentNote.getDate().toString())));
     }
 }
